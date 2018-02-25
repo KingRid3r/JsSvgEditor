@@ -1,0 +1,51 @@
+$midnight-blue : #2c3e50;
+
+body {
+	background-color: $midnight-blue;
+	color : white;
+}
+
+h1 {
+	color : white;
+	margin-left: 10px;
+	font-size: 25px;
+	text-align: left;
+}
+
+button {
+	color: $midnight-blue;
+	margin-top: 5px;
+}
+
+h2 {
+	color : $midnight-blue;
+	font-size: 20px;
+	text-decoration: underline;
+	text-align: center;
+}
+
+#gauche {
+    float: left;
+    width: 70%;
+    height: 600px;
+    background-color: #EFECCA;
+}
+
+#droite {
+	background-color: #CEFFF8;
+	height: 600px;
+	padding : 10px;
+	padding-left: 71%;
+}
+
+.draggable {
+	cursor: move;
+}
+
+.resize {
+	cursor : nw-resize;
+}
+
+.resize_ew {
+	cursor : ew-resize;
+}
