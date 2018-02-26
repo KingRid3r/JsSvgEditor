@@ -106,6 +106,9 @@ class Rectangle extends Forme {
         forme_actu.setAttribute("height", (this.resize.y - this.ancre.y));
 
     }
+    redim(dx, dy){
+        this.resize.move(dx, dy);
+    }
     /*resize(x, y){
         this.ancre.setdx(x);
         this.ancre.setdy(y);
@@ -247,7 +250,7 @@ function initScript()
             {
                 if (selectedElement != svgDoc) {
                         if (selectedElement.getAttributeNS(null, "type") == "rect_resize"){
-                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].resize.move(dx, dy);
+                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].redim(dx, dy);
                         }else{
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
                         }
