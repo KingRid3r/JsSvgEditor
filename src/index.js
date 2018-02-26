@@ -25,6 +25,7 @@ class Ancre {
             this.ancre.setAttribute("x", this._x);
             this.ancre.setAttribute("y", this._y);
             this.ancre.setAttribute("fill", "black");
+            this.ancre.setAttribute("type", this._type);
             var svgDoc = document.querySelector('svg');
             svgDoc.appendChild(this.ancre);
         }
@@ -101,6 +102,9 @@ class Rectangle extends Forme {
         var forme_actu = document.getElementById(this.id);
         forme_actu.setAttribute("x", (this.ancre.x + this.ancre.taille/2));
         forme_actu.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
+        forme_actu.setAttribute("width", (this.resize.x - this.ancre.x));
+        forme_actu.setAttribute("height", (this.resize.y - this.ancre.y));
+
     }
     /*resize(x, y){
         this.ancre.setdx(x);
@@ -242,7 +246,11 @@ function initScript()
             if(selectedElement!=0)
             {
                 if (selectedElement != svgDoc) {
-                        canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
+                        if (selectedElement.getAttributeNS(null, "type") == "rect_resize"){
+                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].resize.move(dx, dy);
+                        }else{
+                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
+                        }
                 }
             //    selectedElement.setAttribute("x", formeX);
             //    selectedElement.setAttribute("y", formeY);
