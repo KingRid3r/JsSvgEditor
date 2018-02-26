@@ -108,7 +108,7 @@ class Rectangle extends Forme {
     }
     redim(dx, dy){
         this.resize.move(dx, dy);
-        this.move(dx, dy);
+        this.move(dx-dx, dy-dy);
     }
     /*resize(x, y){
         this.ancre.setdx(x);
