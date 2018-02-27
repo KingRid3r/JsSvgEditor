@@ -1,4 +1,53 @@
+class Proxy{
+    constructor(_x, _y, _id){
+        this.x = _x;
+        this.y = _y;
+        this.idparent = _id;
+        this.taille = 8;
+    }
+    get x() { return this.x};
+    get y() { return this.y};
+    setdx(_x) { this.x += _x};
+    setdy(_y) { this.y += _y};
+    get taille() { return this.taille};
+};
 
+class Ancre extends Proxy{
+    constructor(_x, _y, _id){
+        super();
+    }
+};
+
+class Forme {
+    constructor(_id) {
+        this.ancre = new Ancre(50, 50, this.id);
+        this.color = "yellow";
+        this.id = _id;
+    }
+};
+
+class Rectangle extends Forme {
+    constructor(ide){
+        super();
+    }
+};
+
+class Formes{
+    constructor(type, id){
+        this.formes = new Array();
+    }
+    addForme(type, id){
+        if (type == "rect"){
+            this.formes[id] = new Rectangle(id);
+        }
+        else if (type == "circle"){
+        //    this.formes[id] = new Circle(id);
+        }
+        else if (type == "ligne"){
+        //    this.formes[id] = new Ligne(id);
+        }
+    }
+};
 
 function initScript()
 {
@@ -12,7 +61,7 @@ function initScript()
 
     var drawCircle = document.getElementById('circle');
     drawCircle.onclick = function cree_cercle(evt) {
-        canvas.addForme("circle", attrib_id());
+        //canvas.addForme("circle", attrib_id());
         console.log(svgDoc);
     }
 
@@ -24,7 +73,7 @@ function initScript()
 
     var drawLine = document.getElementById('ligne');
     drawLine.onclick = function cree_rectangle(evt) {
-        canvas.addForme("ligne", attrib_id());
+        //canvas.addForme("ligne", attrib_id());
         console.log(svgDoc);
     }
 
@@ -51,7 +100,7 @@ function initScript()
             {
                 if (selectedElement != svgDoc) {
                         if (selectedElement.getAttributeNS(null, "type") == "rect_resize"){
-                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].redim(dx, dy);
+                        //    canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].redim(dx, dy);
                         }else{
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
                         }

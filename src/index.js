@@ -40,7 +40,7 @@ class Ancre {
             this.ancre.setAttribute("fill", "black");
             var svgDoc = document.querySelector('svg');
             svgDoc.appendChild(this.ancre);
-        } 
+        }
     }
     get x() { return this._x};
     get y() { return this._y};
@@ -108,7 +108,10 @@ class Rectangle extends Forme {
     }
     redim(dx, dy){
         this.resize.move(dx, dy);
-        this.move(dx-dx, dy-dy);
+        this.resize.moveancre();
+        var forme_actu = document.getElementById(this.id);
+        forme_actu.setAttribute("width", (this.resize.x - this.ancre.x));
+        forme_actu.setAttribute("height", (this.resize.y - this.ancre.y));
     }
     /*resize(x, y){
         this.ancre.setdx(x);
@@ -180,7 +183,7 @@ class Ligne extends Forme {
         forme_actu.setAttribute("y1", (this.gauche.y+this.ancre.taille/2));
         forme_actu.setAttribute("x2", (this.droite.x+this.ancre.taille/2));
         forme_actu.setAttribute("y2", (this.droite.y+this.ancre.taille/2));
-    };  
+    };
 }
 
 class Formes{
@@ -205,7 +208,7 @@ function initScript()
     var svg = "http://www.w3.org/2000/svg";
     var svgDoc = document.querySelector('svg');
     var canvas = new Formes;
-   
+
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
     }
@@ -272,7 +275,7 @@ function initScript()
             svgDoc.removeEventListener('mousemove', onmousemove);
         }, false);
     }, false);
-        
+
 
 
 }
@@ -293,13 +296,13 @@ window.addEventListener('load',initScript);
 
 
  /*var pt = svgDoc.createSVGPoint();
-    
+
 
     function cursorPoint(evt){
         pt.x = evt.clientX;
         pt.y = evt.clientY;
         //il manque une transformation si le canvas est décalé ou tourné ...
-    
+
 
     svgDoc.addEventListener('mousemove', function(evt) {
         var loc = cursorPoint(evt);
