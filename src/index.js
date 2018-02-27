@@ -214,6 +214,24 @@ function initScript()
         console.log(svgDoc);
     }
 
+    var changeColor = document.getElementById('color');
+    var changeBorder = document.getElementById('border');
+    var autre = document.getElementById('autre');
+    var div_couleur = document.getElementById('couleur');
+    var div_bordure = document.getElementById('epais');
+    changeColor.onclick = function() {
+        div_couleur.style.display = 'block';
+        div_bordure.style.display = 'none';
+    }
+    changeBorder.onclick = function() {
+        div_bordure.style.display = 'block';
+        div_couleur.style.display = 'none';
+    }
+    autre.onclick = function() {
+        div_couleur.style.display = 'none';
+        div_bordure.style.display = 'none';
+    }
+
     var selectedElement = 0;
     var currentX = 0;
     var currentY = 0;
