@@ -36,7 +36,7 @@ class rect_resize extends Proxy{
     this.ancre.setAttribute("x", this.x);
     this.ancre.setAttribute("y", this.y);
     this.ancre.setAttribute("fill", "black");
-    this.ancre.setAttribute("type", "rect_resize");
+    this.ancre.setAttribute("type", "resize");
     var svgDoc = document.querySelector('svg');
     svgDoc.appendChild(this.ancre);
   };
@@ -51,6 +51,31 @@ class rect_resize extends Proxy{
   }
 }
 
+class circle_resize extends Proxy{
+  constructor(_x, _y, _id) {
+    super(_x, _y, _id);
+    this.ancre = document.createElementNS(svg, "rect");
+    this.ancre.setAttribute("idparent", this.idparent);
+    this.ancre.setAttribute("class", "resize_ew");
+    this.ancre.setAttribute("width", this.taille);
+    this.ancre.setAttribute("height", this.taille);
+    this.ancre.setAttribute("x", this.x);
+    this.ancre.setAttribute("y", this.y);
+    this.ancre.setAttribute("fill", "black");
+    this.ancre.setAttribute("type", "resize");
+    var svgDoc = document.querySelector('svg');
+    svgDoc.appendChild(this.ancre);
+  }
+  alter_circle_resize(){
+    this.ancre.setAttribute("idparent", this.idparent);
+    this.ancre.setAttribute("class", "resize_ew");
+    this.ancre.setAttribute("width", this.taille);
+    this.ancre.setAttribute("height", this.taille);
+    this.ancre.setAttribute("x", this.x);
+    this.ancre.setAttribute("y", this.y);
+    this.ancre.setAttribute("fill", "black");
+  }
+};
 
 class Forme {
     constructor(_x, _y, _id) {
@@ -96,18 +121,54 @@ class Rectangle extends Forme {
         this.resize.setdy(y);
         this.alter_rect();
         var forme_actu = document.getElementById(this.id);
-        forme_actu.setAttribute("x", (this.ancre.x + this.ancre.taille/2));
-        forme_actu.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
     }
     redim(dx, dy){
         this.resize.setdx(dx);
         this.resize.setdy(dy);
-        this.resize.alter_rect_resize();
         this.alter_rect();
 
     }
 };
 
+class Circle extends Forme {
+    constructor(_id) {
+      super(50, 50, _id);
+      this.rayon = 40;
+      this.newCircle = document.createElementNS(svg, "circle");
+      this.newCircle.setAttribute("id", this.id);
+      this.newCircle.setAttribute("class", "draggable");
+      this.newCircle.setAttribute("cx", this.ancre.x);
+      this.newCircle.setAttribute("cy", this.ancre.y);
+      this.newCircle.setAttribute("r", this.rayon);
+      this.newCircle.setAttribute("fill", this.color);
+      this.newCircle.setAttribute("stroke", "black");
+          var svgDoc = document.querySelector('svg');
+      svgDoc.appendChild(this.newCircle);
+      this.resize = new circle_resize((this.ancre.x+this.rayon-this.ancre.taille/2), (this.ancre.y), this.id);
+    }
+    alter_circle(){
+      this.resize.alter_circle_resize();
+      this.newCircle.setAttribute("id", this.id);
+      this.newCircle.setAttribute("class", "draggable");
+      this.newCircle.setAttribute("cx", this.ancre.x);
+      this.newCircle.setAttribute("cy", this.ancre.y);
+      this.newCircle.setAttribute("r", (this.resize.x-this.ancre.x+4));
+      this.newCircle.setAttribute("fill", this.color);
+      this.newCircle.setAttribute("stroke", "black");
+    }
+    move(x, y){
+      this.ancre.setdx(x);
+      this.ancre.setdy(y);
+      this.resize.setdx(x);
+      this.resize.setdy(y);
+      this.alter_circle();
+    }
+    redim(dx, dy){
+        this.resize.setdx(dx);
+        this.alter_circle();
+
+    }
+};
 class Formes{
     constructor(){
         this.formes = new Array();
@@ -117,7 +178,7 @@ class Formes{
             this.formes[id] = new Rectangle(id);
         }
         else if (type == "circle"){
-        //    this.formes[id] = new Circle(id);
+            this.formes[id] = new Circle(id);
         }
         else if (type == "ligne"){
         //    this.formes[id] = new Ligne(id);
@@ -137,7 +198,7 @@ function initScript()
 
     var drawCircle = document.getElementById('circle');
     drawCircle.onclick = function cree_cercle(evt) {
-        //canvas.addForme("circle", attrib_id());
+        canvas.addForme("circle", attrib_id());
         console.log(svgDoc);
     }
 
@@ -175,7 +236,7 @@ function initScript()
             if(selectedElement!=0)
             {
                 if (selectedElement != svgDoc) {
-                        if (selectedElement.getAttributeNS(null, "type") == "rect_resize"){
+                        if (selectedElement.getAttributeNS(null, "type") == "resize"){
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "idparent"))].redim(dx, dy);
                         }else{
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
