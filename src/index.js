@@ -26,55 +26,71 @@ class Ancre extends Proxy{
     }
 };
 class rect_resize extends Proxy{
-  constructor(_x, _y, _id) {
-    super(_x, _y, _id);
-    this.ancre = document.createElementNS(svg, "rect");
-    this.ancre.setAttribute("idparent", this.idparent);
-    this.ancre.setAttribute("class", "resize");
-    this.ancre.setAttribute("width", this.taille);
-    this.ancre.setAttribute("height", this.taille);
-    this.ancre.setAttribute("x", this.x);
-    this.ancre.setAttribute("y", this.y);
-    this.ancre.setAttribute("fill", "black");
-    this.ancre.setAttribute("type", "resize");
-    var svgDoc = document.querySelector('svg');
-    svgDoc.appendChild(this.ancre);
-  };
-  alter_rect_resize(){
-    this.ancre.setAttribute("idparent", this.idparent);
-    this.ancre.setAttribute("class", "resize");
-    this.ancre.setAttribute("width", this.taille);
-    this.ancre.setAttribute("height", this.taille);
-    this.ancre.setAttribute("x", this.x);
-    this.ancre.setAttribute("y", this.y);
-    this.ancre.setAttribute("fill", "black");
-  }
+    constructor(_x, _y, _id) {
+        super(_x, _y, _id);
+        this.ancre = document.createElementNS(svg, "rect");
+        this.ancre.setAttribute("idparent", this.idparent);
+        this.ancre.setAttribute("class", "resize");
+        this.ancre.setAttribute("width", this.taille);
+        this.ancre.setAttribute("height", this.taille);
+        this.ancre.setAttribute("x", this.x);
+        this.ancre.setAttribute("y", this.y);
+        this.ancre.setAttribute("fill", "black");
+        this.ancre.setAttribute("type", "resize");
+        var svgDoc = document.querySelector('svg');
+        svgDoc.appendChild(this.ancre);
+    };
+    alter_rect_resize(){
+        this.ancre.setAttribute("idparent", this.idparent);
+        this.ancre.setAttribute("class", "resize");
+        this.ancre.setAttribute("width", this.taille);
+        this.ancre.setAttribute("height", this.taille);
+        this.ancre.setAttribute("x", this.x);
+        this.ancre.setAttribute("y", this.y);
+        this.ancre.setAttribute("fill", "black");
+    }
+    deselect(){
+        this.newCircle.setAttribute("fill", "yellow");
+    }
+    select(){
+        this.newRect.setAttribute("fill", "green");
+    }
+    deselect(){
+        this.newRect.setAttribute("fill", "yellow");
+    }
 }
 
 class circle_resize extends Proxy{
-  constructor(_x, _y, _id) {
-    super(_x, _y, _id);
-    this.ancre = document.createElementNS(svg, "rect");
-    this.ancre.setAttribute("idparent", this.idparent);
-    this.ancre.setAttribute("class", "resize_ew");
-    this.ancre.setAttribute("width", this.taille);
-    this.ancre.setAttribute("height", this.taille);
-    this.ancre.setAttribute("x", this.x);
-    this.ancre.setAttribute("y", this.y);
-    this.ancre.setAttribute("fill", "black");
-    this.ancre.setAttribute("type", "resize");
-    var svgDoc = document.querySelector('svg');
-    svgDoc.appendChild(this.ancre);
-  }
-  alter_circle_resize(){
-    this.ancre.setAttribute("idparent", this.idparent);
-    this.ancre.setAttribute("class", "resize_ew");
-    this.ancre.setAttribute("width", this.taille);
-    this.ancre.setAttribute("height", this.taille);
-    this.ancre.setAttribute("x", this.x);
-    this.ancre.setAttribute("y", this.y);
-    this.ancre.setAttribute("fill", "black");
-  }
+    constructor(_x, _y, _id) {
+        super(_x, _y, _id);
+        this.ancre = document.createElementNS(svg, "rect");
+        this.ancre.setAttribute("idparent", this.idparent);
+        this.ancre.setAttribute("class", "resize_ew");
+        this.ancre.setAttribute("width", this.taille);
+        this.ancre.setAttribute("height", this.taille);
+        this.ancre.setAttribute("x", this.x);
+        this.ancre.setAttribute("y", this.y);
+        this.ancre.setAttribute("fill", "black");
+        this.ancre.setAttribute("type", "resize");
+        var svgDoc = document.querySelector('svg');
+        svgDoc.appendChild(this.ancre);
+    }
+    alter_circle_resize(){
+        this.ancre.setAttribute("idparent", this.idparent);
+        this.ancre.setAttribute("class", "resize_ew");
+        this.ancre.setAttribute("width", this.taille);
+        this.ancre.setAttribute("height", this.taille);
+        this.ancre.setAttribute("x", this.x);
+        this.ancre.setAttribute("y", this.y);
+        this.ancre.setAttribute("fill", "black");
+    }
+    select(){
+        this.newRect.setAttribute("fill", "green");
+    }
+    deselect(){
+        this.newRect.setAttribute("fill", "yellow");
+    }
+
 };
 
 class Forme {
@@ -262,16 +278,17 @@ function initScript()
     var currentY = 0;
     var formeX = 0;
     var formeY = 0;
-    var i = 0;
 
     svgDoc.addEventListener('click', function(evt) {
         selectedElement = evt.target;
-        while (i != (canvas.formes.length - 1)) {
-            canvas.formes[i].deselect();
-            i++;
-        }
+        
         if (selectedElement != svgDoc) {
             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
+        }
+        else {
+            for (var i = 0; i <= canvas.formes.length; i++) {
+                canvas.formes[i].deselect();
+            }
         }
     });
 
