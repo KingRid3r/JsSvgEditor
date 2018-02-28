@@ -168,9 +168,12 @@ class Circle extends Forme {
     redim(dx, dy){
         this.resize.setdx(dx);
         this.alter_circle();
-
+    }
+    select(){
+        this.newCircle.setAttribute("fill", "green");
     }
 };
+
 class Formes{
     constructor(){
         this.formes = new Array();
@@ -222,12 +225,24 @@ function initScript()
     var div_couleur = document.getElementById('couleur');
     var div_bordure = document.getElementById('epais');
     changeColor.onclick = function() {
-        div_couleur.style.display = 'block';
-        div_bordure.style.display = 'none';
+        if (div_couleur.style.display == 'none') {
+            div_couleur.style.display = 'block';
+            div_bordure.style.display = 'none';
+        }
+        else 
+        {
+            div_couleur.style.display = 'none';
+        }        
     }
     changeBorder.onclick = function() {
-        div_bordure.style.display = 'block';
-        div_couleur.style.display = 'none';
+        if (div_bordure.style.display == 'none') {
+            div_bordure.style.display = 'block';
+            div_couleur.style.display = 'none';    
+        }
+        else
+        {
+            div_bordure.style.display = 'none';
+        }        
     }
     supprimer.onclick = function() {
         if (confirm("Voulez-vous supprimer la forme ?")) { 
@@ -244,8 +259,10 @@ function initScript()
 
     svgDoc.addEventListener('click', function(evt) {
         selectedElement = evt.target;
-        canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
-        console.log(selectedElement);
+        if (selectedElement != svgDoc) {
+            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
+            console.log(selectedElement);
+        }
     });
 
     svgDoc.addEventListener('mousedown', function(evt) {
