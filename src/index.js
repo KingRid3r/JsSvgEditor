@@ -126,7 +126,9 @@ class Rectangle extends Forme {
         this.resize.setdx(dx);
         this.resize.setdy(dy);
         this.alter_rect();
-
+    }
+    select(){
+        this.newRect.setAttribute("fill", "green");
     }
 };
 
@@ -216,7 +218,7 @@ function initScript()
 
     var changeColor = document.getElementById('color');
     var changeBorder = document.getElementById('border');
-    var autre = document.getElementById('autre');
+    var supprimer = document.getElementById('supprimer');
     var div_couleur = document.getElementById('couleur');
     var div_bordure = document.getElementById('epais');
     changeColor.onclick = function() {
@@ -227,9 +229,11 @@ function initScript()
         div_bordure.style.display = 'block';
         div_couleur.style.display = 'none';
     }
-    autre.onclick = function() {
-        div_couleur.style.display = 'none';
-        div_bordure.style.display = 'none';
+    supprimer.onclick = function() {
+        if (confirm("Voulez-vous supprimer la forme ?")) { 
+            div_couleur.style.display = 'none';
+            div_bordure.style.display = 'none';
+       }
     }
 
     var selectedElement = 0;
@@ -237,6 +241,12 @@ function initScript()
     var currentY = 0;
     var formeX = 0;
     var formeY = 0;
+
+    svgDoc.addEventListener('click', function(evt) {
+        selectedElement = evt.target;
+        canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
+        console.log(selectedElement);
+    });
 
     svgDoc.addEventListener('mousedown', function(evt) {
         selectedElement = evt.target;
