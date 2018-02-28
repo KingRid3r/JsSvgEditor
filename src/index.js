@@ -352,9 +352,8 @@ function initScript()
         }
     }
 
-
     var couleur_gris = document.getElementById('grey');
-    // var formeSelected = document.getElementsByAttribute("selected", "true");
+    var formeSelected = document.querySelectorAll("selected", "true");
     couleur_gris.onclick = function(evt) {
         if (formeSelected != svgDoc) {
             canvas.formes[parseFloat(formeSelected.getAttributeNS(null, "id"))].setAttribute("fill", "grey");
