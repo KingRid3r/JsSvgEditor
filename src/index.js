@@ -97,7 +97,7 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
         this.newRect.setAttribute("fill", this.color);
         this.newRect.setAttribute("stroke", "black");
-            var svgDoc = document.querySelector('svg');
+        var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newRect);
         this.resize = new rect_resize(this.ancre.x + 80, this.ancre.y +120, _id);
         this.width = this.resize.x - this.ancre.x;
@@ -129,6 +129,9 @@ class Rectangle extends Forme {
     }
     select(){
         this.newRect.setAttribute("fill", "green");
+    }
+    deselect(){
+        this.newRect.setAttribute("fill", "yellow");
     }
 };
 
@@ -171,6 +174,9 @@ class Circle extends Forme {
     }
     select(){
         this.newCircle.setAttribute("fill", "green");
+    }
+    deselect(){
+        this.newCircle.setAttribute("fill", "yellow");
     }
 };
 
@@ -256,12 +262,16 @@ function initScript()
     var currentY = 0;
     var formeX = 0;
     var formeY = 0;
+    var i = 0;
 
     svgDoc.addEventListener('click', function(evt) {
         selectedElement = evt.target;
+        while (i != (canvas.formes.length - 1)) {
+            canvas.formes[i].deselect();
+            i++;
+        }
         if (selectedElement != svgDoc) {
             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
-            console.log(selectedElement);
         }
     });
 
