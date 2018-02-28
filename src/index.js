@@ -93,6 +93,34 @@ class circle_resize extends Proxy{
 
 };
 
+class Ligne_ancre extends Proxy{
+    constructor(_x, _y, _id, who) {
+        super(_x, _y, _id);
+        this.ancre = document.createElementNS(svg, "rect");
+        this.ancre.setAttribute("idparent", this.idparent);
+        this.ancre.setAttribute("class", "draggable");
+        this.ancre.setAttribute("width", this.taille);
+        this.ancre.setAttribute("height", this.taille);
+        this.ancre.setAttribute("x", this.x-4);
+        this.ancre.setAttribute("y", this.y-4);
+        this.ancre.setAttribute("fill", "black");
+        this.ancre.setAttribute("type", "ligne_resize");
+        this.ancre.setAttribute("who", who);
+        var svgDoc = document.querySelector('svg');
+        svgDoc.appendChild(this.ancre);
+    }
+    alter_Ligne_ancre(){
+      this.ancre.setAttribute("idparent", this.idparent);
+      this.ancre.setAttribute("class", "draggable");
+      this.ancre.setAttribute("width", this.taille);
+      this.ancre.setAttribute("height", this.taille);
+      this.ancre.setAttribute("x", this.x-4);
+      this.ancre.setAttribute("y", this.y-4);
+      this.ancre.setAttribute("fill", "black");
+    }
+}
+
+
 class Forme {
     constructor(_x, _y, _id) {
         this.ancre = new Ancre(_x, _y, this.id);
@@ -196,6 +224,58 @@ class Circle extends Forme {
     }
 };
 
+class Ligne extends Forme{
+    constructor(_id) {
+      super(50, 50, _id);
+      this.newLine = document.createElementNS(svg, "line");
+      this.newLine.setAttribute("id", this.id);
+      this.newLine.setAttribute("class", "draggable");
+      this.newLine.setAttribute("x1", 50);
+      this.newLine.setAttribute("y1", 50);
+      this.newLine.setAttribute("x2", (50+100));
+      this.newLine.setAttribute("y2", 50);
+      this.newLine.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:4");
+          var svgDoc = document.querySelector('svg');
+      svgDoc.appendChild(this.newLine);
+      this.ancre1 = new Ligne_ancre(50, 50, _id, 1);
+      this.ancre2 = new Ligne_ancre(150, 50, _id, 2);
+    }
+    alter_Ligne(){
+      this.ancre1.alter_Ligne_ancre();
+      this.ancre2.alter_Ligne_ancre();
+      this.newLine.setAttribute("id", this.id);
+      this.newLine.setAttribute("class", "draggable");
+      this.newLine.setAttribute("x1", this.ancre1.x);
+      this.newLine.setAttribute("y1", this.ancre1.y);
+      this.newLine.setAttribute("x2", (this.ancre2.x));
+      this.newLine.setAttribute("y2", this.ancre2.y);
+      this.newLine.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:4");
+    }
+    move(x, y){
+        this.ancre1.setdx(x);
+        this.ancre1.setdy(y);
+        this.ancre2.setdx(x);
+        this.ancre2.setdy(y);
+        this.alter_Ligne();
+    }
+    redim(dx, dy, who){
+      if(who == 1){
+        this.ancre1.setdx(dx);
+        this.ancre1.setdy(dy);
+      }else {
+        this.ancre2.setdx(dx);
+        this.ancre2.setdy(dy);
+      }
+        this.alter_Ligne();
+    }
+    select(){
+        this.newLine.setAttribute("fill", "green");
+    }
+    deselect(){
+        this.newLine.setAttribute("fill", "yellow");
+    }
+}
+
 class Formes{
     constructor(){
         this.formes = new Array();
@@ -208,7 +288,7 @@ class Formes{
             this.formes[id] = new Circle(id);
         }
         else if (type == "ligne"){
-        //    this.formes[id] = new Ligne(id);
+            this.formes[id] = new Ligne(id);
         }
     }
 };
@@ -236,8 +316,8 @@ function initScript()
     }
 
     var drawLine = document.getElementById('ligne');
-    drawLine.onclick = function cree_rectangle(evt) {
-        //canvas.addForme("ligne", attrib_id());
+    drawLine.onclick = function cree_ligne(evt) {
+        canvas.addForme("ligne", attrib_id());
         console.log(svgDoc);
     }
 
@@ -251,23 +331,23 @@ function initScript()
             div_couleur.style.display = 'block';
             div_bordure.style.display = 'none';
         }
-        else 
+        else
         {
             div_couleur.style.display = 'none';
-        }        
+        }
     }
     changeBorder.onclick = function() {
         if (div_bordure.style.display == 'none') {
             div_bordure.style.display = 'block';
-            div_couleur.style.display = 'none';    
+            div_couleur.style.display = 'none';
         }
         else
         {
             div_bordure.style.display = 'none';
-        }        
+        }
     }
     supprimer.onclick = function() {
-        if (confirm("Voulez-vous supprimer la forme ?")) { 
+        if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
             div_bordure.style.display = 'none';
        }
@@ -281,7 +361,7 @@ function initScript()
 
     svgDoc.addEventListener('click', function(evt) {
         selectedElement = evt.target;
-        
+
         if (selectedElement != svgDoc) {
             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
         }
@@ -310,6 +390,8 @@ function initScript()
                 if (selectedElement != svgDoc) {
                         if (selectedElement.getAttributeNS(null, "type") == "resize"){
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "idparent"))].redim(dx, dy);
+                        }else if(selectedElement.getAttributeNS(null, "type") == "ligne_resize"){
+                            canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "idparent"))].redim(dx, dy, selectedElement.getAttributeNS(null, "who"));
                         }else{
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
                         }
