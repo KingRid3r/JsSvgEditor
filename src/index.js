@@ -169,7 +169,7 @@ class Rectangle extends Forme {
         var forme_actu = document.getElementById(this.id);
     }
     redim(dx, dy){
-      if (((this.resize.x+dx) - (this.ancre.x))>0 || ((this.resize.y+dy) - (this.ancre.y))<=0){
+      if (!(((this.resize.x+dx) - (this.ancre.x))<=0 || ((this.resize.y+dy) - (this.ancre.y))<=0)){
         this.resize.setdx(dx);
         this.resize.setdy(dy);
         this.alter_rect();
@@ -221,8 +221,10 @@ class Circle extends Forme {
         this.alter_circle();
     }
     redim(dx, dy){
+      if(!((this.resize.x-this.ancre.x+4+dx)<=0)){
         this.resize.setdx(dx);
         this.alter_circle();
+      }
     }
     select(){
         this.newCircle.setAttribute("stroke", "blue");
