@@ -141,6 +141,7 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
         this.newRect.setAttribute("fill", this.color);
         this.newRect.setAttribute("stroke", "black");
+        this.newRect.setAttribute("selected", "false");
         var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newRect);
         this.resize = new rect_resize(this.ancre.x + 80, this.ancre.y +120, _id);
@@ -148,15 +149,16 @@ class Rectangle extends Forme {
         this.height = this.resize.y - this.ancre.y;
     }
     alter_rect(){
-      this.resize.alter_rect_resize();
-      this.newRect.setAttribute("id", this.id);
-      this.newRect.setAttribute("class", "draggable");
-      this.newRect.setAttribute("width", this.resize.x - this.ancre.x);
-      this.newRect.setAttribute("height", this.resize.y - this.ancre.y);
-      this.newRect.setAttribute("x", (this.ancre.x + this.ancre.taille/2));
-      this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
-      this.newRect.setAttribute("fill", this.color);
-      this.newRect.setAttribute("stroke", "black");
+        this.resize.alter_rect_resize();
+        this.newRect.setAttribute("id", this.id);
+        this.newRect.setAttribute("class", "draggable");
+        this.newRect.setAttribute("width", this.resize.x - this.ancre.x);
+        this.newRect.setAttribute("height", this.resize.y - this.ancre.y);
+        this.newRect.setAttribute("x", (this.ancre.x + this.ancre.taille/2));
+        this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
+        this.newRect.setAttribute("fill", this.color);
+        this.newRect.setAttribute("stroke", "black");
+        this.newRect.setAttribute("selected", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -174,84 +176,94 @@ class Rectangle extends Forme {
       }
     }
     select(){
-        this.newRect.setAttribute("fill", "green");
+        this.newRect.setAttribute("stroke", "blue");
+        this.newRect.setAttribute("selected", "true");
     }
     deselect(){
-        this.newRect.setAttribute("fill", "yellow");
+        this.newRect.setAttribute("stroke", "black");
+        this.newRect.setAttribute("selected", "false")
     }
 };
 
 class Circle extends Forme {
     constructor(_id) {
-      super(50, 50, _id);
-      this.rayon = 40;
-      this.newCircle = document.createElementNS(svg, "circle");
-      this.newCircle.setAttribute("id", this.id);
-      this.newCircle.setAttribute("class", "draggable");
-      this.newCircle.setAttribute("cx", this.ancre.x);
-      this.newCircle.setAttribute("cy", this.ancre.y);
-      this.newCircle.setAttribute("r", this.rayon);
-      this.newCircle.setAttribute("fill", this.color);
-      this.newCircle.setAttribute("stroke", "black");
-          var svgDoc = document.querySelector('svg');
-      svgDoc.appendChild(this.newCircle);
-      this.resize = new circle_resize((this.ancre.x+this.rayon-this.ancre.taille/2), (this.ancre.y), this.id);
+        super(50, 50, _id);
+        this.rayon = 40;
+        this.newCircle = document.createElementNS(svg, "circle");
+        this.newCircle.setAttribute("id", this.id);
+        this.newCircle.setAttribute("class", "draggable");
+        this.newCircle.setAttribute("cx", this.ancre.x);
+        this.newCircle.setAttribute("cy", this.ancre.y);
+        this.newCircle.setAttribute("r", this.rayon);
+        this.newCircle.setAttribute("fill", this.color);
+        this.newCircle.setAttribute("stroke", "black");
+        this.newCircle.setAttribute("selected", "false");
+        var svgDoc = document.querySelector('svg');
+        svgDoc.appendChild(this.newCircle);
+        this.resize = new circle_resize((this.ancre.x+this.rayon-this.ancre.taille/2), (this.ancre.y), this.id);
     }
     alter_circle(){
-      this.resize.alter_circle_resize();
-      this.newCircle.setAttribute("id", this.id);
-      this.newCircle.setAttribute("class", "draggable");
-      this.newCircle.setAttribute("cx", this.ancre.x);
-      this.newCircle.setAttribute("cy", this.ancre.y);
-      this.newCircle.setAttribute("r", (this.resize.x-this.ancre.x+4));
-      this.newCircle.setAttribute("fill", this.color);
-      this.newCircle.setAttribute("stroke", "black");
+        this.resize.alter_circle_resize();
+        this.newCircle.setAttribute("id", this.id);
+        this.newCircle.setAttribute("class", "draggable");
+        this.newCircle.setAttribute("cx", this.ancre.x);
+        this.newCircle.setAttribute("cy", this.ancre.y);
+        this.newCircle.setAttribute("r", (this.resize.x-this.ancre.x+4));
+        this.newCircle.setAttribute("fill", this.color);
+        this.newCircle.setAttribute("stroke", "black");
+        this.newCircle.setAttribute("selected", "false");
     }
     move(x, y){
-      this.ancre.setdx(x);
-      this.ancre.setdy(y);
-      this.resize.setdx(x);
-      this.resize.setdy(y);
-      this.alter_circle();
+        this.ancre.setdx(x);
+        this.ancre.setdy(y);
+        this.resize.setdx(x);
+        this.resize.setdy(y);
+        this.alter_circle();
     }
     redim(dx, dy){
         this.resize.setdx(dx);
         this.alter_circle();
     }
     select(){
-        this.newCircle.setAttribute("fill", "green");
+        this.newCircle.setAttribute("stroke", "blue");
+        this.newCircle.setAttribute("selected", "true");
     }
     deselect(){
-        this.newCircle.setAttribute("fill", "yellow");
+        this.newCircle.setAttribute("stroke", "black");
+        this.newCircle.setAttribute("selected", "false")
     }
 };
 
 class Ligne extends Forme{
     constructor(_id) {
-      super(50, 50, _id);
-      this.newLine = document.createElementNS(svg, "line");
-      this.newLine.setAttribute("id", this.id);
-      this.newLine.setAttribute("class", "draggable");
-      this.newLine.setAttribute("x1", 50);
-      this.newLine.setAttribute("y1", 50);
-      this.newLine.setAttribute("x2", (50+100));
-      this.newLine.setAttribute("y2", 50);
-      this.newLine.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:4");
-          var svgDoc = document.querySelector('svg');
-      svgDoc.appendChild(this.newLine);
-      this.ancre1 = new Ligne_ancre(50, 50, _id, 1);
-      this.ancre2 = new Ligne_ancre(150, 50, _id, 2);
+        super(50, 50, _id);
+        this.newLine = document.createElementNS(svg, "line");
+        this.newLine.setAttribute("id", this.id);
+        this.newLine.setAttribute("class", "draggable");
+        this.newLine.setAttribute("x1", 50);
+        this.newLine.setAttribute("y1", 50);
+        this.newLine.setAttribute("x2", (50+100));
+        this.newLine.setAttribute("y2", 50);
+        this.newLine.setAttribute("stroke", "red");
+        this.newLine.setAttribute("stroke-width", "4");
+        this.newLine.setAttribute("selected", "false");
+        var svgDoc = document.querySelector('svg');
+        svgDoc.appendChild(this.newLine);
+        this.ancre1 = new Ligne_ancre(50, 50, _id, 1);
+        this.ancre2 = new Ligne_ancre(150, 50, _id, 2);
     }
     alter_Ligne(){
-      this.ancre1.alter_Ligne_ancre();
-      this.ancre2.alter_Ligne_ancre();
-      this.newLine.setAttribute("id", this.id);
-      this.newLine.setAttribute("class", "draggable");
-      this.newLine.setAttribute("x1", this.ancre1.x);
-      this.newLine.setAttribute("y1", this.ancre1.y);
-      this.newLine.setAttribute("x2", (this.ancre2.x));
-      this.newLine.setAttribute("y2", this.ancre2.y);
-      this.newLine.setAttribute("style", "stroke:rgb(255,0,0);stroke-width:4");
+        this.ancre1.alter_Ligne_ancre();
+        this.ancre2.alter_Ligne_ancre();
+        this.newLine.setAttribute("id", this.id);
+        this.newLine.setAttribute("class", "draggable");
+        this.newLine.setAttribute("x1", this.ancre1.x);
+        this.newLine.setAttribute("y1", this.ancre1.y);
+        this.newLine.setAttribute("x2", (this.ancre2.x));
+        this.newLine.setAttribute("y2", this.ancre2.y);
+        this.newLine.setAttribute("stroke", "red");
+        this.newLine.setAttribute("stroke-width", "4");
+        this.newLine.setAttribute("selected", "false");
     }
     move(x, y){
         this.ancre1.setdx(x);
@@ -271,10 +283,12 @@ class Ligne extends Forme{
         this.alter_Ligne();
     }
     select(){
-        this.newLine.setAttribute("fill", "green");
+        this.newLine.setAttribute("stroke", "yellow");
+        this.newLine.setAttribute("selected", "true");
     }
     deselect(){
-        this.newLine.setAttribute("fill", "yellow");
+        this.newLine.setAttribute("stroke", "red");
+        this.newLine.setAttribute("selected", "false");
     }
 }
 
@@ -324,10 +338,7 @@ function initScript()
     }
 
     var changeColor = document.getElementById('color');
-    var changeBorder = document.getElementById('border');
-    var supprimer = document.getElementById('supprimer');
     var div_couleur = document.getElementById('couleur');
-    var div_bordure = document.getElementById('epais');
     changeColor.onclick = function() {
         if (div_couleur.style.display == 'none') {
             div_couleur.style.display = 'block';
@@ -338,6 +349,18 @@ function initScript()
             div_couleur.style.display = 'none';
         }
     }
+
+
+    var couleur_gris = document.getElementById('grey');
+    // var formeSelected = document.getElementsByAttribute("selected", "true");
+    couleur_gris.onclick = function(evt) {
+        if (formeSelected != svgDoc) {
+            canvas.formes[parseFloat(formeSelected.getAttributeNS(null, "id"))].setAttribute("fill", "grey");
+        }
+    }
+
+    var changeBorder = document.getElementById('border');
+    var div_bordure = document.getElementById('epais');
     changeBorder.onclick = function() {
         if (div_bordure.style.display == 'none') {
             div_bordure.style.display = 'block';
@@ -348,6 +371,8 @@ function initScript()
             div_bordure.style.display = 'none';
         }
     }
+
+    var supprimer = document.getElementById('supprimer');
     supprimer.onclick = function() {
         if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
