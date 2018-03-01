@@ -21,8 +21,12 @@
         <div id="droite">
             <h2>Formes</h2>
             <button id="rect">Rectangle</button>
+            <button id="square">Carré</button>
             <button id="circle">Cercle</button>
+            <button id="ellipse">Ellipse</button>
             <button id="ligne">Ligne</button>
+            <button id="polyline">Lignes Multiples</button>
+            <button id="polygon">Polygone</button>
             </ul>
             <hr />
             <h2>Paramètres</h2>
@@ -39,13 +43,22 @@
                 <button id="white" style="background-color: white; color: white">o</button>
                 <hr />
             </div>
-            <button id="border">Changer l'épaisseur</button>
+            <button id="border">Modifier la bordure</button>
             <br />
             <div id="epais" style="display: none;">
-                <p>Ajustez la taille et le style de la bordure de la forme sélectionnée</p>
+                <p>Ajustez la taille, la couleur et le style de la bordure de la forme sélectionnée</p>
                 Taille : 
                 <button id="moins">-</button> <!-- stroke-width-1 -->
                 <button id="plus">+</button>
+                <br />
+                Couleur :
+                <button id="border_grey" style="background-color: grey; color: grey">o</button>
+                <button id="border_red" style="background-color: red; color: red">o</button>
+                <button id="border_green" style="background-color: green; color: green">o</button>
+                <button id="border_blue" style="background-color: blue; color: blue">o</button>
+                <button id="border_yellow" style="background-color: yellow; color: yellow">o</button>
+                <button id="border_black" style="background-color: black; color: black">o</button>                
+                <button id="border_white" style="background-color: white; color: white">o</button>
                 <br />
                 Style : 
                 <button id="droit" >Continu</button> 

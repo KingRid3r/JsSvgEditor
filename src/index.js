@@ -87,7 +87,6 @@ class circle_resize extends Proxy{
     deselect(){
         this.newRect.setAttribute("fill", "yellow");
     }
-
 };
 
 class Ligne_ancre extends Proxy{
@@ -359,43 +358,43 @@ function initScript()
     var formeSelected = document.getElementsByName('true');
     couleur_gris.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "grey");
+            formeSelected[i].setAttribute("fill", "grey");
     }
 
     var couleur_red = document.getElementById('red');
     couleur_red.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "red");
+            formeSelected[i].setAttribute("fill", "red");
     }
 
     var couleur_green = document.getElementById('green');
     couleur_green.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "green");
+            formeSelected[i].setAttribute("fill", "green");
     }
 
     var couleur_blue = document.getElementById('blue');
     couleur_blue.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "blue");
+            formeSelected[i].setAttribute("fill", "blue");
     }
 
     var couleur_yellow = document.getElementById('yellow');
     couleur_yellow.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "yellow");
+            formeSelected[i].setAttribute("fill", "yellow");
     }
 
     var couleur_black = document.getElementById('black');
     couleur_black.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "black");
+            formeSelected[i].setAttribute("fill", "black");
     }
 
     var couleur_white = document.getElementById('white');
     couleur_white.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("fill", "white");
+            formeSelected[i].setAttribute("fill", "white");
     }
 
     var changeBorder = document.getElementById('border');
@@ -414,37 +413,37 @@ function initScript()
     var border_moins = document.getElementById('moins');
     border_moins.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")-1));
+            formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")-1));
     }
 
     var border_plus = document.getElementById('plus');
     border_plus.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")+1));
+            formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")+1));
     }
 
     var border_droit = document.getElementById('droit');
     border_droit.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-dasharray", " ");
+            formeSelected[i].setAttribute("stroke-dasharray", " ");
     }
 
     var border_dash1 = document.getElementById('dash1');
     border_dash1.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-dasharray", "5,5");
+            formeSelected[i].setAttribute("stroke-dasharray", "5,5");
     }
 
     var border_dash2 = document.getElementById('dash2');
     border_dash2.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-dasharray", "10,10");
+            formeSelected[i].setAttribute("stroke-dasharray", "10,10");
     }
 
     var border_dash3 = document.getElementById('dash3');
     border_dash3.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-        formeSelected[i].setAttribute("stroke-dasharray", "20,10,5,5,5,10");
+            formeSelected[i].setAttribute("stroke-dasharray", "20,10,5,5,5,10");
     }
 
     var supprimer = document.getElementById('supprimer');
@@ -452,7 +451,7 @@ function initScript()
         if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
             div_bordure.style.display = 'none';
-       }
+        }
     }
 
     var selectedElement = 0;
