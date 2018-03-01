@@ -49,9 +49,6 @@ class rect_resize extends Proxy{
         this.ancre.setAttribute("y", this.y);
         this.ancre.setAttribute("fill", "black");
     }
-    deselect(){
-        this.newCircle.setAttribute("fill", "yellow");
-    }
     select(){
         this.newRect.setAttribute("fill", "green");
     }
@@ -141,7 +138,9 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
         this.newRect.setAttribute("fill", this.color);
         this.newRect.setAttribute("stroke", "black");
-        this.newRect.setAttribute("selected", "false");
+        this.newRect.setAttribute("stroke-width", 2);
+        this.newRect.setAttribute("stroke-dasharray", " ");
+        this.newRect.setAttribute("name", "false");
         var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newRect);
         this.resize = new rect_resize(this.ancre.x + 80, this.ancre.y +120, _id);
@@ -158,7 +157,9 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
         this.newRect.setAttribute("fill", this.color);
         this.newRect.setAttribute("stroke", "black");
-        this.newRect.setAttribute("selected", "false");
+        this.newRect.setAttribute("stroke-width", 2);
+        this.newRect.setAttribute("stroke-dasharray", " ");
+        this.newRect.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -177,11 +178,11 @@ class Rectangle extends Forme {
     }
     select(){
         this.newRect.setAttribute("stroke", "blue");
-        this.newRect.setAttribute("selected", "true");
+        this.newRect.setAttribute("name", "true");
     }
     deselect(){
         this.newRect.setAttribute("stroke", "black");
-        this.newRect.setAttribute("selected", "false")
+        this.newRect.setAttribute("name", "false")
     }
 };
 
@@ -197,7 +198,8 @@ class Circle extends Forme {
         this.newCircle.setAttribute("r", this.rayon);
         this.newCircle.setAttribute("fill", this.color);
         this.newCircle.setAttribute("stroke", "black");
-        this.newCircle.setAttribute("selected", "false");
+        this.newCircle.setAttribute("stroke-width", 2);
+        this.newCircle.setAttribute("name", "false");
         var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newCircle);
         this.resize = new circle_resize((this.ancre.x+this.rayon-this.ancre.taille/2), (this.ancre.y), this.id);
@@ -211,7 +213,8 @@ class Circle extends Forme {
         this.newCircle.setAttribute("r", (this.resize.x-this.ancre.x+4));
         this.newCircle.setAttribute("fill", this.color);
         this.newCircle.setAttribute("stroke", "black");
-        this.newCircle.setAttribute("selected", "false");
+        this.newCircle.setAttribute("stroke-width", 2);
+        this.newCircle.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -228,11 +231,11 @@ class Circle extends Forme {
     }
     select(){
         this.newCircle.setAttribute("stroke", "blue");
-        this.newCircle.setAttribute("selected", "true");
+        this.newCircle.setAttribute("name", "true");
     }
     deselect(){
         this.newCircle.setAttribute("stroke", "black");
-        this.newCircle.setAttribute("selected", "false")
+        this.newCircle.setAttribute("name", "false")
     }
 };
 
@@ -248,7 +251,7 @@ class Ligne extends Forme{
         this.newLine.setAttribute("y2", 50);
         this.newLine.setAttribute("stroke", "red");
         this.newLine.setAttribute("stroke-width", "4");
-        this.newLine.setAttribute("selected", "false");
+        this.newLine.setAttribute("name", "false");
         var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newLine);
         this.ancre1 = new Ligne_ancre(50, 50, _id, 1);
@@ -265,7 +268,7 @@ class Ligne extends Forme{
         this.newLine.setAttribute("y2", this.ancre2.y);
         this.newLine.setAttribute("stroke", "red");
         this.newLine.setAttribute("stroke-width", "4");
-        this.newLine.setAttribute("selected", "false");
+        this.newLine.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre1.setdx(x);
@@ -286,11 +289,11 @@ class Ligne extends Forme{
     }
     select(){
         this.newLine.setAttribute("stroke", "yellow");
-        this.newLine.setAttribute("selected", "true");
+        this.newLine.setAttribute("name", "true");
     }
     deselect(){
         this.newLine.setAttribute("stroke", "red");
-        this.newLine.setAttribute("selected", "false");
+        this.newLine.setAttribute("name", "false");
     }
 }
 
@@ -353,11 +356,46 @@ function initScript()
     }
 
     var couleur_gris = document.getElementById('grey');
-    var formeSelected = document.querySelectorAll("selected", "true");
+    var formeSelected = document.getElementsByName('true');
     couleur_gris.onclick = function(evt) {
-        if (formeSelected != svgDoc) {
-            canvas.formes[parseFloat(formeSelected.getAttributeNS(null, "id"))].setAttribute("fill", "grey");
-        }
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "grey");
+    }
+
+    var couleur_red = document.getElementById('red');
+    couleur_red.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "red");
+    }
+
+    var couleur_green = document.getElementById('green');
+    couleur_green.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "green");
+    }
+
+    var couleur_blue = document.getElementById('blue');
+    couleur_blue.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "blue");
+    }
+
+    var couleur_yellow = document.getElementById('yellow');
+    couleur_yellow.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "yellow");
+    }
+
+    var couleur_black = document.getElementById('black');
+    couleur_black.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "black");
+    }
+
+    var couleur_white = document.getElementById('white');
+    couleur_white.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("fill", "white");
     }
 
     var changeBorder = document.getElementById('border');
@@ -371,6 +409,42 @@ function initScript()
         {
             div_bordure.style.display = 'none';
         }
+    }
+
+    var border_moins = document.getElementById('moins');
+    border_moins.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")-1));
+    }
+
+    var border_plus = document.getElementById('plus');
+    border_plus.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")+1));
+    }
+
+    var border_droit = document.getElementById('droit');
+    border_droit.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-dasharray", " ");
+    }
+
+    var border_dash1 = document.getElementById('dash1');
+    border_dash1.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-dasharray", "5,5");
+    }
+
+    var border_dash2 = document.getElementById('dash2');
+    border_dash2.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-dasharray", "10,10");
+    }
+
+    var border_dash3 = document.getElementById('dash3');
+    border_dash3.onclick = function(evt) {
+        for (var i = 0; i <= formeSelected.length; i++)
+        formeSelected[i].setAttribute("stroke-dasharray", "20,10,5,5,5,10");
     }
 
     var supprimer = document.getElementById('supprimer');
