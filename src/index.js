@@ -323,21 +323,47 @@ function initScript()
         return Math.floor(Math.random() * Math.floor(max));
     }
 
-    var drawCircle = document.getElementById('circle');
-    drawCircle.onclick = function cree_cercle(evt) {
-        canvas.addForme("circle", attrib_id());
-        console.log(svgDoc);
-    }
-
     var drawRect = document.getElementById('rect');
     drawRect.onclick = function cree_rectangle(evt) {
         canvas.addForme("rect", attrib_id());
         console.log(svgDoc);
     }
 
+    var drawSquare = document.getElementById('square');
+    drawSquare.onclick = function cree_carre(evt) {
+        canvas.addForme("square", attrib_id());
+        console.log(svgDoc);
+    }
+
+    var drawCircle = document.getElementById('circle');
+    drawCircle.onclick = function cree_cercle(evt) {
+        canvas.addForme("circle", attrib_id());
+        console.log(svgDoc);
+    }
+
+    var drawEllipse = document.getElementById('ellipse');
+    drawEllipse.onclick = function cree_ellipse(evt) {
+        canvas.addForme("ellipse", attrib_id());
+        console.log(svgDoc);
+    }
+
     var drawLine = document.getElementById('ligne');
     drawLine.onclick = function cree_ligne(evt) {
         canvas.addForme("ligne", attrib_id());
+        console.log(svgDoc);
+    }
+
+    var drawPolyline = document.getElementById('polyline');
+    drawPolyline.onclick = function cree_polyline(evt) {
+        prompt('Entrez le nombre de lignes voulues','Entrez un nombre');
+        canvas.addForme("polyline", attrib_id());
+        console.log(svgDoc);
+    }
+
+    var drawPolygone = document.getElementById('polygone');
+    drawPolygone.onclick = function cree_polygone(evt) {
+        prompt('Entrez le nombre de faces voulues','Entrez un nombre');
+        canvas.addForme("polygone", attrib_id());
         console.log(svgDoc);
     }
 
