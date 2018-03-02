@@ -175,6 +175,10 @@ class Rectangle extends Forme {
         this.alter_rect();
       }
     }
+    changeColor(_color){
+      this.color = _color;
+      this.alter_rect();
+    }
     select(){
         this.newRect.setAttribute("stroke", "blue");
         this.newRect.setAttribute("name", "true");
@@ -228,6 +232,10 @@ class Circle extends Forme {
         this.alter_circle();
       }
     }
+    changeColor(_color){
+      this.color = _color;
+      this.alter_circle();
+    }
     select(){
         this.newCircle.setAttribute("stroke", "blue");
         this.newCircle.setAttribute("name", "true");
@@ -268,6 +276,7 @@ class Ligne extends Forme{
         this.newLine.setAttribute("stroke", "red");
         this.newLine.setAttribute("stroke-width", "4");
         this.newLine.setAttribute("name", "false");
+        this.newLine.setAttribute("fill", this.color);
     }
     move(x, y){
         this.ancre1.setdx(x);
@@ -286,6 +295,11 @@ class Ligne extends Forme{
       }
         this.alter_Ligne();
     }
+    changeColor(_color){
+      this.color = _color;
+      this.alter_Ligne();
+    }
+
     select(){
         this.newLine.setAttribute("stroke", "yellow");
         this.newLine.setAttribute("name", "true");
@@ -384,43 +398,43 @@ function initScript()
     var formeSelected = document.getElementsByName('true');
     couleur_gris.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "grey");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("grey");
     }
 
     var couleur_red = document.getElementById('red');
     couleur_red.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "red");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("red");
     }
 
     var couleur_green = document.getElementById('green');
     couleur_green.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "green");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("green");
     }
 
     var couleur_blue = document.getElementById('blue');
     couleur_blue.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "blue");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("blue");
     }
 
     var couleur_yellow = document.getElementById('yellow');
     couleur_yellow.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "yellow");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("yellow");
     }
 
     var couleur_black = document.getElementById('black');
     couleur_black.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "black");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("black");
     }
 
     var couleur_white = document.getElementById('white');
     couleur_white.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "white");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("white");
     }
 
     var changeBorder = document.getElementById('border');
