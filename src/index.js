@@ -403,15 +403,27 @@ function initScript()
 
     var couleur_gris = document.getElementById('grey');
     var formeSelected = document.getElementsByName('true');
+    //var formeSelected =  function{
+    //  var formeSelected = new Array();
+    //  for (var i = 0; i < canvas.formes.length; i++) {
+    //    var y = 0;
+    //    if (canvas.formes[i].select == true){
+    //      formeSelected[y] = canvas.formes[i];
+    //      y++;
+    //    }
+    //  }
+    //};
     couleur_gris.onclick = function(evt) {
+        console.log(formeSelected)
         for (var i = 0; i <= formeSelected.length; i++)
-            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("grey");
+            formeSelected[i].changeColor("grey");
     }
 
     var couleur_red = document.getElementById('red');
     couleur_red.onclick = function(evt) {
+        selectf();
         for (var i = 0; i <= formeSelected.length; i++)
-            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("red");
+            formeSelected[i].changeColor("red");
     }
 
     var couleur_green = document.getElementById('green');
