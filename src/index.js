@@ -122,6 +122,7 @@ class Forme {
         this.ancre = new Ancre(_x, _y, this.id);
         this.color = "yellow";
         this.id = _id;
+        this.selected = false;
     }
 };
 
@@ -180,10 +181,12 @@ class Rectangle extends Forme {
       this.alter_rect();
     }
     select(){
+        this.select = true;
         this.newRect.setAttribute("stroke", "blue");
         this.newRect.setAttribute("name", "true");
     }
     deselect(){
+        this.select = false;
         this.newRect.setAttribute("stroke", "black");
         this.newRect.setAttribute("name", "false")
     }
@@ -237,10 +240,12 @@ class Circle extends Forme {
       this.alter_circle();
     }
     select(){
+        this.select = true;
         this.newCircle.setAttribute("stroke", "blue");
         this.newCircle.setAttribute("name", "true");
     }
     deselect(){
+        this.select = false;
         this.newCircle.setAttribute("stroke", "black");
         this.newCircle.setAttribute("name", "false")
     }
@@ -301,10 +306,12 @@ class Ligne extends Forme{
     }
 
     select(){
+        this.select = true;
         this.newLine.setAttribute("stroke", "yellow");
         this.newLine.setAttribute("name", "true");
     }
     deselect(){
+        this.select = false;
         this.newLine.setAttribute("stroke", "red");
         this.newLine.setAttribute("name", "false");
     }
