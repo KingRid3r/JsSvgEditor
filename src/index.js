@@ -416,14 +416,14 @@ function initScript()
     couleur_gris.onclick = function(evt) {
         console.log(formeSelected)
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].changeColor("grey");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("grey");
     }
 
     var couleur_red = document.getElementById('red');
     couleur_red.onclick = function(evt) {
         selectf();
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].changeColor("red");
+            canvas.formes[parseFloat(formeSelected[i].getAttributeNS(null, "id"))].changeColor("red");
     }
 
     var couleur_green = document.getElementById('green');
