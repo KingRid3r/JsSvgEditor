@@ -385,7 +385,7 @@ class Ellipse extends Forme {
         this.newEllipse.setAttribute("stroke-dasharray", this.dasharray);
         var svgDoc = document.querySelector('svg');
         svgDoc.appendChild(this.newEllipse);
-        this.resize = new circle_resize((this.ancre.x+(this.rayon*1.5)-this.ancre.taille/2), (this.ancre.y), this.id);
+        this.resize = new circle_resize((this.ancre.x+(this.rayon*1.5)-this.ancre.taille/2), (this.ancre.y+this.rayon-this.ancre.taille/2), this.id);
     }
     alter_Ellipse(){
         this.resize.alter_circle_resize();
@@ -408,8 +408,9 @@ class Ellipse extends Forme {
         this.alter_Ellipse();
     }
     redim(dx, dy){
-      if(!((this.resize.x-this.ancre.x+4+dx)<=0)){
+      if (!(((this.resize.x+dx) - (this.ancre.x))<=0 || ((this.resize.y+dy) - (this.ancre.y))<=0)){
         this.resize.setdx(dx);
+        this.resize.setdy(dy);
         this.alter_Ellipse();
       }
     }
