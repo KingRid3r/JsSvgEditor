@@ -122,6 +122,8 @@ class Forme {
     constructor(_x, _y, _id, _nb) {
         this.ancre = new Ancre(_x, _y, this.id);
         this.color = "yellow";
+        this.epaisseur;
+        this.borderColor
         this.id = _id;
         this.nb = _nb;
         this.selected = false;
@@ -751,7 +753,7 @@ function initScript()
         if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
             div_bordure.style.display = 'none';
-            for (var i = 0; i <= formeSelected.length; i++){
+            for (var i = 0; i < formeSelected.length; i++){
                 var idforme = formeSelected[i].getAttributeNS(null, "id");
                 console.log(idforme);
                 canvas.formes[idforme].del();
