@@ -186,6 +186,10 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("stroke", "black");
         this.newRect.setAttribute("name", "false")
     }
+    changeColor(col){
+      this.color = col;
+      this.alter_rect();
+    }
     del(){
       this.resize.delete();
       var svgDoc = document.querySelector('svg');
@@ -214,7 +218,7 @@ class Carre extends Forme {
         this.width = this.resize.x - this.ancre.x;
         this.height = this.resize.y - this.ancre.y;
     }
-    alter_rect(){
+    alter_Square(){
         this.resize.alter_rect_resize();
         this.newSquare.setAttribute("id", this.id);
         this.newSquare.setAttribute("class", "draggable");
@@ -222,7 +226,7 @@ class Carre extends Forme {
         this.newSquare.setAttribute("height", this.resize.y - this.ancre.y);
         this.newSquare.setAttribute("x", (this.ancre.x + this.ancre.taille/2));
         this.newSquare.setAttribute("y", (this.ancre.y + this.ancre.taille/2));
-        this.newSquare.setAttribute("fill", "yellow");
+        this.newSquare.setAttribute("fill", this.color);
         this.newSquare.setAttribute("stroke", "black");
         this.newSquare.setAttribute("stroke-width", 2);
         this.newSquare.setAttribute("stroke-dasharray", " ");
@@ -233,14 +237,14 @@ class Carre extends Forme {
         this.ancre.setdy(y);
         this.resize.setdx(x);
         this.resize.setdy(y);
-        this.alter_rect();
+        this.alter_Square();
         var forme_actu = document.getElementById(this.id);
     }
     redim(dx, dy){
         if (!(((this.resize.x+dx) - (this.ancre.x))<=0 || ((this.resize.y+dy) - (this.ancre.y))<=0)){
             this.resize.setdx(dx);
             this.resize.setdy(dy);
-            this.alter_rect();
+            this.alter_Square();
         }
     }
     select(){
@@ -251,11 +255,16 @@ class Carre extends Forme {
         this.newSquare.setAttribute("stroke", "black");
         this.newSquare.setAttribute("name", "false")
     }
+    changeColor(col){
+      this.color = col;
+      this.alter_Square();
+    }
     del(){
       this.resize.delete();
       var svgDoc = document.querySelector('svg');
       svgDoc.removeChild(this.newSquare);
     }
+
 };
 
 class Circle extends Forme {
@@ -309,6 +318,10 @@ class Circle extends Forme {
         this.newCircle.setAttribute("stroke", "black");
         this.newCircle.setAttribute("name", "false")
     }
+    changeColor(col){
+      this.color = col;
+      this.alter_circle();
+    }
     del(){
       this.resize.delete();
       var svgDoc = document.querySelector('svg');
@@ -335,7 +348,7 @@ class Ellipse extends Forme {
         svgDoc.appendChild(this.newEllipse);
         this.resize = new circle_resize((this.ancre.x+(this.rayon*1.5)-this.ancre.taille/2), (this.ancre.y), this.id);
     }
-    alter_circle(){
+    alter_Ellipse(){
         this.resize.alter_circle_resize();
         this.newEllipse.setAttribute("id", this.id);
         this.newEllipse.setAttribute("class", "draggable");
@@ -353,12 +366,12 @@ class Ellipse extends Forme {
         this.ancre.setdy(y);
         this.resize.setdx(x);
         this.resize.setdy(y);
-        this.alter_circle();
+        this.alter_Ellipse();
     }
     redim(dx, dy){
       if(!((this.resize.x-this.ancre.x+4+dx)<=0)){
         this.resize.setdx(dx);
-        this.alter_circle();
+        this.alter_Ellipse();
       }
     }
     select(){
@@ -368,6 +381,10 @@ class Ellipse extends Forme {
     deselect(){
         this.newEllipse.setAttribute("stroke", "black");
         this.newEllipse.setAttribute("name", "false")
+    }
+    changeColor(col){
+      this.color = col;
+      this.alter_Ellipse();
     }
     del(){
       this.resize.delete();
@@ -403,10 +420,9 @@ class Ligne extends Forme{
         this.newLine.setAttribute("y1", this.ancre1.y);
         this.newLine.setAttribute("x2", (this.ancre2.x));
         this.newLine.setAttribute("y2", this.ancre2.y);
-        this.newLine.setAttribute("stroke", "red");
+        this.newLine.setAttribute("stroke", this.color);
         this.newLine.setAttribute("stroke-width", "4");
         this.newLine.setAttribute("name", "false");
-        this.newLine.setAttribute("fill", this.color);
     }
     move(x, y){
         this.ancre1.setdx(x);
@@ -430,8 +446,12 @@ class Ligne extends Forme{
         this.newLine.setAttribute("name", "true");
     }
     deselect(){
-        this.newLine.setAttribute("stroke", "red");
+        this.newLine.setAttribute("stroke", this.color);
         this.newLine.setAttribute("name", "false");
+    }
+    changeColor(col){
+      this.color = col;
+      this.alter_Ligne();
     }
     del(){
       this.ancre1.delete();
@@ -456,7 +476,7 @@ class Polyligne extends Forme{
         this.ancre1 = new Ligne_ancre(50, 50, _id, 1);
         this.ancre2 = new Ligne_ancre(150, 50, _id, 2);
     }
-    alter_Ligne(){
+    alter_polyLigne(){
         this.ancre1.alter_Ligne_ancre();
         this.ancre2.alter_Ligne_ancre();
         this.newPoliline.setAttribute("id", this.id);
@@ -472,7 +492,7 @@ class Polyligne extends Forme{
         this.ancre1.setdy(y);
         this.ancre2.setdx(x);
         this.ancre2.setdy(y);
-        this.alter_Ligne();
+        this.alter_polyLigne();
     }
     redim(dx, dy, who){
       if(who == 1){
@@ -482,7 +502,7 @@ class Polyligne extends Forme{
         this.ancre2.setdx(dx);
         this.ancre2.setdy(dy);
       }
-        this.alter_Ligne();
+        this.alter_polyLigne();
     }
     select(){
         this.newPoliline.setAttribute("stroke", "yellow");
@@ -504,6 +524,10 @@ class Polyligne extends Forme{
                 return points;
             }
         }
+    }
+    changeColor(col){
+      this.color = col;
+      this.alter_polyLigne();
     }
     del(){
       this.ancre1.delete();
@@ -612,44 +636,58 @@ function initScript()
     var couleur_gris = document.getElementById('grey');
     var formeSelected = document.getElementsByName('true');
     couleur_gris.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "grey");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("grey");
+      }      //formeSelected[i].setAttribute("fill", "grey");
     }
 
     var couleur_red = document.getElementById('red');
     couleur_red.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "red");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("red");
+      }
     }
 
     var couleur_green = document.getElementById('green');
     couleur_green.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "green");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("green");
+      }
     }
 
     var couleur_blue = document.getElementById('blue');
     couleur_blue.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "blue");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("blue");
+      }
     }
 
     var couleur_yellow = document.getElementById('yellow');
     couleur_yellow.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "yellow");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("yellow");
+      }
     }
 
     var couleur_black = document.getElementById('black');
     couleur_black.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "black");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("black");
+      }
     }
 
     var couleur_white = document.getElementById('white');
     couleur_white.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("fill", "white");
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColor("white");
+      }
     }
 
     var rotation = document.getElementById('rotate');
