@@ -164,7 +164,6 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("stroke", this.borderColor);
         this.newRect.setAttribute("stroke-width", this.epaisseur);
         this.newRect.setAttribute("stroke-dasharray", this.dasharray);
-        this.newRect.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -245,7 +244,6 @@ class Carre extends Forme {
         this.newSquare.setAttribute("stroke", this.borderColor);
         this.newSquare.setAttribute("stroke-width", this.epaisseur);
         this.newSquare.setAttribute("stroke-dasharray", this.dasharray);
-        this.newSquare.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -325,7 +323,6 @@ class Circle extends Forme {
         this.newCircle.setAttribute("stroke", this.borderColor);
         this.newCircle.setAttribute("stroke-width", this.epaisseur);
         this.newCircle.setAttribute("stroke-dasharray", this.dasharray);
-        this.newCircle.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre.setdx(x);
@@ -477,7 +474,6 @@ class Ligne extends Forme{
         this.newLine.setAttribute("stroke", this.color);
         this.newLine.setAttribute("stroke-width", this.epaisseur);
         this.newLine.setAttribute("stroke-dasharray", this.dasharray);
-        this.newLine.setAttribute("name", "false");
     }
     move(x, y){
         this.ancre1.setdx(x);
@@ -794,49 +790,60 @@ function initScript()
         }
     }
 
-    //forme des bordures
+    //forme et epaisseur des bordures
 
     var border_moins = document.getElementById('moins');
     border_moins.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")-1));
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeEpaisseur(formeSelected[i].getAttributeNS(null, "stroke-width")-1);
+      }
     }
 
     var border_plus = document.getElementById('plus');
     border_plus.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-width", (parseFloat(formeSelected[i].getAttributeNS(null, "stroke-width"))+1));
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeEpaisseur(parseFloat(formeSelected[i].getAttributeNS(null, "stroke-width"))+1);
+      }
     }
 
     var border_droit = document.getElementById('droit');
     border_droit.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-dasharray", " ");
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeDash(" ");
+      }
     }
 
     var border_dash1 = document.getElementById('dash1');
     border_dash1.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-dasharray", "5,5");
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeDash("5,5");
+      }
     }
 
     var border_dash2 = document.getElementById('dash2');
     border_dash2.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-dasharray", "10,10");
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeDash("10,10");
+        }
     }
 
     var border_dash3 = document.getElementById('dash3');
     border_dash3.onclick = function(evt) {
-        for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-dasharray", "20,10,5,5,5,10");
+        for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeDash("20,10,5,5,5,10");
+      }
     }
 
 
     //couleur des bordures
 
     var border_couleur_gris = document.getElementById('border_grey');
-    var formeSelected = document.getElementsByName('true');
     border_couleur_gris.onclick = function(evt) {
       for (var i = 0; i <= formeSelected.length; i++){
           var idforme = formeSelected[i].getAttributeNS(null, "id");
