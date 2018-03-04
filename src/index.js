@@ -13,6 +13,7 @@ class Proxy{
         this.idparent = _id;
         this.taille = 8;
     }
+
     //get x() { return this.x};
     //get y() { return this.y};
     setdx(_x) { this.x += _x};
@@ -49,6 +50,10 @@ class rect_resize extends Proxy{
         this.ancre.setAttribute("y", this.y);
         this.ancre.setAttribute("fill", "black");
     }
+    delete(){
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.ancre);
+    }
 }
 
 class circle_resize extends Proxy{
@@ -74,6 +79,10 @@ class circle_resize extends Proxy{
         this.ancre.setAttribute("x", this.x);
         this.ancre.setAttribute("y", this.y);
         this.ancre.setAttribute("fill", "black");
+    }
+    delete(){
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.ancre);
     }
 };
 
@@ -101,6 +110,10 @@ class Ligne_ancre extends Proxy{
         this.ancre.setAttribute("x", this.x-4);
         this.ancre.setAttribute("y", this.y-4);
         this.ancre.setAttribute("fill", "black");
+    }
+    delete(){
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.ancre);
     }
 }
 
@@ -173,6 +186,11 @@ class Rectangle extends Forme {
         this.newRect.setAttribute("stroke", "black");
         this.newRect.setAttribute("name", "false")
     }
+    del(){
+      this.resize.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newRect);
+    }
 };
 
 class Carre extends Forme {
@@ -233,6 +251,11 @@ class Carre extends Forme {
         this.newSquare.setAttribute("stroke", "black");
         this.newSquare.setAttribute("name", "false")
     }
+    del(){
+      this.resize.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newSquare);
+    }
 };
 
 class Circle extends Forme {
@@ -285,6 +308,11 @@ class Circle extends Forme {
     deselect(){
         this.newCircle.setAttribute("stroke", "black");
         this.newCircle.setAttribute("name", "false")
+    }
+    del(){
+      this.resize.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newCircle);
     }
 };
 
@@ -340,6 +368,11 @@ class Ellipse extends Forme {
     deselect(){
         this.newEllipse.setAttribute("stroke", "black");
         this.newEllipse.setAttribute("name", "false")
+    }
+    del(){
+      this.resize.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newEllipse);
     }
 };
 
@@ -399,6 +432,12 @@ class Ligne extends Forme{
     deselect(){
         this.newLine.setAttribute("stroke", "red");
         this.newLine.setAttribute("name", "false");
+    }
+    del(){
+      this.ancre1.delete();
+      this.ancre2.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newLine);
     }
 }
 
@@ -465,6 +504,12 @@ class Polyligne extends Forme{
                 return points;
             }
         }
+    }
+    del(){
+      this.ancre1.delete();
+      this.ancre2.delete();
+      var svgDoc = document.querySelector('svg');
+      svgDoc.removeChild(this.newPoliline);
     }
 }
 
@@ -668,7 +713,12 @@ function initScript()
         if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
             div_bordure.style.display = 'none';
-            //formeSelected[i].
+            for (var i = 0; i <= formeSelected.length; i++){
+                var idforme = formeSelected[i].getAttributeNS(null, "id");
+                console.log(idforme);
+                canvas.formes[idforme].del();
+                console.log(svgDoc);
+            }
         }
     }
 
