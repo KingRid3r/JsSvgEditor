@@ -905,7 +905,9 @@ function initScript()
         if (confirm("Voulez-vous supprimer la forme ?")) {
             div_couleur.style.display = 'none';
             div_bordure.style.display = 'none';
-            for (var i = 0; i < formeSelected.length; i++){
+            for (var i = 0; i <= formeSelected.length; i++){
+                console.log(i);
+                console.log(formeSelected);
                 var idforme = formeSelected[i].getAttributeNS(null, "id");
                 console.log(idforme);
                 canvas.formes[idforme].del();
@@ -922,9 +924,16 @@ function initScript()
 
     svgDoc.addEventListener('click', function(evt) {
         selectedElement = evt.target;
-
         if (selectedElement != svgDoc) {
+          if (formeSelected != null) {
+              for (var i = 0; i <= formeSelected.length; i++){
+                  canvas.formes[i].deselect();
+              }
+              canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
+          }
+          else {
             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].select();
+          }
         }
         else {
             for (var i = 0; i <= canvas.formes.length; i++) {
