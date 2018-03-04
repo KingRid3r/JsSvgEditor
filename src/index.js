@@ -13,12 +13,8 @@ class Proxy{
         this.idparent = _id;
         this.taille = 8;
     }
-
-    //get x() { return this.x};
-    //get y() { return this.y};
     setdx(_x) { this.x += _x};
     setdy(_y) { this.y += _y};
-    //get taille() { return this.taille};
 };
 
 class Ancre extends Proxy{
@@ -254,13 +250,11 @@ class Carre extends Forme {
         var forme_actu = document.getElementById(this.id);
     }
     redim(dx, dy){
-      //if (dx == dy){
         if (!(((this.resize.x+dx) - (this.ancre.x))<=0 || ((this.resize.y+dy) - (this.ancre.y))<=0)){
             this.resize.setdx(dx);
             this.resize.setdy(dx);
             this.alter_Square();
         }
-      //}
     }
     select(){
         this.newSquare.setAttribute("stroke", "blue");
@@ -953,8 +947,6 @@ function initScript()
             selectedElement = evt.target;
             var dx = evt.clientX - currentX;
             var dy = evt.clientY - currentY;
-            //formeX += dx;
-            //formeY += dy;
             if(selectedElement!=0)
             {
                 if (selectedElement != svgDoc) {
@@ -966,8 +958,6 @@ function initScript()
                             canvas.formes[parseFloat(selectedElement.getAttributeNS(null, "id"))].move(dx, dy);
                         }
                 }
-            //    selectedElement.setAttribute("x", formeX);
-            //    selectedElement.setAttribute("y", formeY);
             }
             currentX = evt.clientX;
             currentY = evt.clientY;
