@@ -576,6 +576,8 @@ function initScript()
         return Math.floor(Math.random() * Math.floor(max));
     }
 
+    //fonctions associés aux boutons pour ajouter des formes
+
     var drawRect = document.getElementById('rect');
     drawRect.onclick = function cree_rectangle(evt) {
         canvas.addForme("rect", attrib_id());
@@ -633,13 +635,15 @@ function initScript()
         }
     }
 
+    //couleur des formes
+
     var couleur_gris = document.getElementById('grey');
     var formeSelected = document.getElementsByName('true');
     couleur_gris.onclick = function(evt) {
       for (var i = 0; i <= formeSelected.length; i++){
           var idforme = formeSelected[i].getAttributeNS(null, "id");
           canvas.formes[idforme].changeColor("grey");
-      }      //formeSelected[i].setAttribute("fill", "grey");
+      }     
     }
 
     var couleur_red = document.getElementById('red');
@@ -710,6 +714,8 @@ function initScript()
         }
     }
 
+    //forme des bordures
+
     var border_moins = document.getElementById('moins');
     border_moins.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
@@ -719,7 +725,7 @@ function initScript()
     var border_plus = document.getElementById('plus');
     border_plus.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
-            formeSelected[i].setAttribute("stroke-width", (formeSelected[i].getAttributeNS(null, "stroke-width")+1));
+            formeSelected[i].setAttribute("stroke-width", (parseFloat(formeSelected[i].getAttributeNS(null, "stroke-width"))+1));
     }
 
     var border_droit = document.getElementById('droit');
@@ -744,6 +750,66 @@ function initScript()
     border_dash3.onclick = function(evt) {
         for (var i = 0; i <= formeSelected.length; i++)
             formeSelected[i].setAttribute("stroke-dasharray", "20,10,5,5,5,10");
+    }
+
+
+    //couleur des bordures
+
+    var border_couleur_gris = document.getElementById('border_grey');
+    var formeSelected = document.getElementsByName('true');
+    border_couleur_gris.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("grey");
+      }      
+    }
+
+    var border_couleur_red = document.getElementById('border_red');
+    border_couleur_red.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("red");
+      }
+    }
+
+    var border_couleur_green = document.getElementById('border_green');
+    border_couleur_green.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("green");
+      }
+    }
+
+    var border_couleur_blue = document.getElementById('border_blue');
+    border_couleur_blue.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("blue");
+      }
+    }
+
+    var border_couleur_yellow = document.getElementById('border_yellow');
+    border_couleur_yellow.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("yellow");
+      }
+    }
+
+    var border_couleur_black = document.getElementById('border_black');
+    border_couleur_black.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("black");
+      }
+    }
+
+    var border_couleur_white = document.getElementById('border_white');
+    border_couleur_white.onclick = function(evt) {
+      for (var i = 0; i <= formeSelected.length; i++){
+          var idforme = formeSelected[i].getAttributeNS(null, "id");
+          canvas.formes[idforme].changeColorBorder("white");
+      }
     }
 
     var supprimer = document.getElementById('supprimer');
